@@ -62,12 +62,12 @@ class Sklik(object):
         kwargs['session'] = self._login()
         return get(self.url + method, json=[kwargs]).json()
 
-    def post(self, method, *args):
+    def post(self, method, data):
         """Encapsulation HTTP POST method.
         :param method: Sklik API method. Eg: campaigns.create
         :param args: optional data
         :return: result of POST method
         """
-        json_list = [list(args)]
-        json_list.insert(0, {'session': self._login()})
-        return post(self.url + method, data=None, json=json_list).json()
+        json_data = [{'session': self._login()}]
+        json_data.insert(1, data)
+        return post(self.url + method, data=None, json=json_data).json()
