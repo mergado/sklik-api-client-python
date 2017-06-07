@@ -15,14 +15,20 @@ sklik = client.Sklik(username='your_username', password='your_password')
 # Second is via api key which can user generate in Sklik settings.
 sklik = client.Sklik(api_key='your_api_key')
 
-# example of HTTP GET method - get client credit
-sklik.get('client.getCredit')
+# Fetch session to make authorized requests.
+session = sklik.login()
 
-# example of HTTP POST method - create campaign
-sklik.post('campaigns.create', [{'name': 'name of campaign', 'datBudget': 10000}])
+# example of an API call - get client credit
+sklik.post('client.getCredit', session)
 
-# example of HTTP POST method - update two campaings in one request
-sklik.post('campaigns.update', [{'id': 314159, 'name': 'new name of campaign'},
-                                {'id': 271828, 'name': 'other new name'}])
+# example of an API call - create campaign
+sklik.post('campaigns.create',
+           {'session': session},
+           {'name': 'name of campaign', 'datBudget': 10000})
 
+# example of an API call - update two campaings in one request
+sklik.post('campaigns.update',
+           {'session': session},
+           {'id': 314159, 'name': 'new name of campaign'},
+           {'id': 271828, 'name': 'other new name'})
 ```
