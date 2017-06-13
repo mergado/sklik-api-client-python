@@ -19,7 +19,7 @@ sklik = client.Sklik(api_key='your_api_key')
 session = sklik.login()
 
 # example of an API call - get client credit
-sklik.post('client.getCredit', session)
+sklik.post('client.getCredit', {'session': session})
 
 # example of an API call - create campaign
 sklik.post('campaigns.create',
